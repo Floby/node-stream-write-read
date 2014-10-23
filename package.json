@@ -32,5 +32,8 @@
     "mocha": "^2.0.0",
     "sinon": "^1.10.3",
     "stream-sink": "^1.2.0"
+  },
+  "dependencies": {
+    "duplex-maker": "^1.0.0"
   }
 }
