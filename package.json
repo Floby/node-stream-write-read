@@ -22,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/Floby/node-stream-write-read/issues"
   },
-  "homepage": "https://github.com/Floby/node-stream-write-read"
+  "homepage": "https://github.com/Floby/node-stream-write-read",
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.2",
+    "mocha": "^2.0.0",
+    "stream-sink": "^1.2.0"
+  }
 }
