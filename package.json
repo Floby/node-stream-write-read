@@ -1,6 +1,6 @@
 {
   "name": "stream-write-read",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Write to a file, read when it's done",
   "main": "index.js",
   "scripts": {
