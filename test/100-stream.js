@@ -152,4 +152,19 @@ describe('the WriteRead stream', function () {
       });
     })
   })
+
+  it('should be a readable stream itslef', function (done) {
+    var cache = WriteRead(file);
+    cache.pipe(sink()).on('data', assertions);
+
+    cache.write('Hello World!');
+    cache.end();
+
+    function assertions (contents) {
+      var written = fs.readFileSync(file, 'utf8');
+      expect(written).to.equal('Hello World!');
+      expect(contents).to.equal('Hello World!');
+      done();
+    }
+  });
 })
