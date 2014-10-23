@@ -28,6 +28,7 @@ source.pipe(cache);
 Since pipelines are sexier, you can also do
 
 ```javascript
+var cache;
 source
   .pipe(WriteRead('/my/path'))
   .affect(function () { cache = this })
