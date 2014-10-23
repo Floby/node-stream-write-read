@@ -1,0 +1,26 @@
+{
+  "name": "stream-write-read",
+  "version": "0.0.0",
+  "description": "Write to a file, read when it's done",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover _mocha -- test -R spec && istanbul check --branches 90 --statements 95 --lines 100 --functions 100"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Floby/node-stream-write-read.git"
+  },
+  "keywords": [
+    "stream",
+    "cache",
+    "ka-ching",
+    "read",
+    "write"
+  ],
+  "author": "Florent Jaby <florent.jaby@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Floby/node-stream-write-read/issues"
+  },
+  "homepage": "https://github.com/Floby/node-stream-write-read"
+}
