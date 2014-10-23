@@ -1,6 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var expect = require('chai').expect;
+var assert = require('chai').assert;
+var sinon = require('sinon');
 var sink = require('stream-sink');
 
 var WriteRead = require('..');
@@ -83,6 +85,21 @@ describe('the WriteRead stream', function () {
           if(isReadable) return done(new Error('"readable" event was called'));
           done();
         }, 200);
+      });
+
+      it('should start flowing once the stream is written', function (done) {
+        var onFinish = sinon.spy();
+        var onFirstData = sinon.spy();
+        cache.on('finish', onFinish);
+        readable.once('data', onFirstData);
+        readable.resume();
+
+        cache.end('coucou');
+
+        readable.on('end', function () {
+          assert(onFirstData.calledAfter(onFinish), 'first data called before finish');
+          done();
+        })
       });
     });
   })
