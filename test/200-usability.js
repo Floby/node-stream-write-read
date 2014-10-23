@@ -27,5 +27,11 @@ describe('a WriteRead stream', function () {
       var call = callback.getCall(0);
       assert.equal(call.thisValue, cache, 'should be called on the WriteRead stream');
     });
+
+    it('should return itself for chaining', function () {
+      var cache = WriteRead(file);
+      var actual = cache.affect(sinon.spy());
+      assert.equal(actual, cache, 'affect() did not return itself')
+    });
   });
 })
