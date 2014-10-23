@@ -4,6 +4,8 @@ var expect = require('chai').expect;
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var sink = require('stream-sink');
+var async = require('async');
+
 
 var WriteRead = require('..');
 
@@ -102,5 +104,52 @@ describe('the WriteRead stream', function () {
         })
       });
     });
+
+    describe('when called several times', function () {
+      it('should give the same content to every readable', function (done) {
+        var cache = WriteRead(file);
+        var readable1 = cache.readable();
+        var readable2, readable3, readable4;
+        cache.write('hello');
+        
+        setTimeout(function () {
+          readable2 = cache.readable();
+        }, 25);
+        setTimeout(function () {
+          cache.write(' ');
+        }, 30);
+        setTimeout(function () {
+          readable3 = cache.readable();
+        });
+        setTimeout(function () {
+          cache.end('world');
+        }, 50)
+        setTimeout(function () {
+          readable4 = cache.readable();
+        }, 60);
+
+        setTimeout(function () {
+          async.parallel([
+            complete(readable1),
+            complete(readable2),
+            complete(readable3),
+            complete(readable4)
+          ], function (err, results) {
+            if(err) return done(err);
+            results.forEach(function (content) {
+              expect(content).to.equal('hello world');
+            });
+            done();
+          })
+        }, 70);
+
+        function complete (readable) {
+          return function (callback) {
+            readable.on('error', callback);
+            readable.pipe(sink()).on('data', callback.bind(null, null));
+          }
+        }
+      });
+    })
   })
 })
