@@ -35,13 +35,13 @@ describe('the WriteRead stream', function () {
     }
   });
 
-  describe('.readable()', function () {
+  describe('.createReadable()', function () {
     describe('when called after the finish event', function () {
       var readable;
       beforeEach(function (done) {
         var cache = WriteRead(file);
         cache.on('finish', function () {
-          readable = cache.readable();
+          readable = cache.createReadable();
           done();
         });
         cache.end('Something Something');
@@ -61,7 +61,7 @@ describe('the WriteRead stream', function () {
 
       beforeEach(function (done) {
         cache = WriteRead(file);
-        readable = cache.readable();
+        readable = cache.createReadable();
         done();
       });
       afterEach(function (done) {
@@ -108,24 +108,24 @@ describe('the WriteRead stream', function () {
     describe('when called several times', function () {
       it('should give the same content to every readable', function (done) {
         var cache = WriteRead(file);
-        var readable1 = cache.readable();
+        var readable1 = cache.createReadable();
         var readable2, readable3, readable4;
         cache.write('hello');
         
         setTimeout(function () {
-          readable2 = cache.readable();
+          readable2 = cache.createReadable();
         }, 25);
         setTimeout(function () {
           cache.write(' ');
         }, 30);
         setTimeout(function () {
-          readable3 = cache.readable();
+          readable3 = cache.createReadable();
         });
         setTimeout(function () {
           cache.end('world');
         }, 50)
         setTimeout(function () {
-          readable4 = cache.readable();
+          readable4 = cache.createReadable();
         }, 60);
 
         setTimeout(function () {

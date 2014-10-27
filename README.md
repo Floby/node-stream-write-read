@@ -20,7 +20,7 @@ Usage
 var WriteRead = require('stream-write-read');
 
 var cache = WriteRead('/my/cache/folder/file');
-cache.readable().pipe(destination);
+cache.createReadable().pipe(destination);
 
 source.pipe(cache);
 ```
@@ -36,7 +36,7 @@ source
 ```
 
 that is, the readable side of a WriteRead stream is itself a readable
-stream from `.readable()`
+stream from `.createReadable()`
 
 Test
 ----
