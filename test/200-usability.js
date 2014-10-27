@@ -34,4 +34,28 @@ describe('a WriteRead stream', function () {
       assert.equal(actual, cache, 'affect() did not return itself')
     });
   });
+
+  describe('option delayOpen', function () {
+    before(function () {
+      sinon.spy(fs, 'createWriteStream');
+    });
+    after(function () {
+      fs.createWriteStream.restore();
+    })
+    it('should wait for an explicit call to open() before opening the file', function (done) {
+      var cache = WriteRead(file, {delayOpen: true});
+      assert(!fs.createWriteStream.called, 'createWriteStream should not get called');
+      cache.write('Hello ');
+      setTimeout(function () {
+        cache.open();
+        cache.end('World');
+        cache.on('end', function () {
+          assert(fs.createWriteStream.calledOnce, 'createWriteStream should have been called');
+          var contents = fs.readFileSync(file, 'utf8');
+          assert.equal(contents, 'Hello World')
+          done();
+        }).resume();
+      }, 20);
+    });
+  })
 })
