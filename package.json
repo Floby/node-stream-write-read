@@ -34,6 +34,7 @@
     "stream-sink": "^1.2.0"
   },
   "dependencies": {
-    "duplex-maker": "^1.0.0"
+    "duplex-maker": "^1.0.0",
+    "graceful-fs": "^3.0.4"
   }
 }

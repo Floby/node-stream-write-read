@@ -1,5 +1,5 @@
 var path = require('path');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var sinon = require('sinon');
 var assert = require('chai').assert;
 var WriteRead = require('..');
